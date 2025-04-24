@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{% extends 'base.html '%} <!-- Наследование базового шаблона-->
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block body %}
+<h1>Главная страница</h1>
+    <form>
+    <label for="name">Введите имя</label>
+    <input type="text" id="1" placeholder="Виктор">
+    </form>
+{% endblock %}
+
