@@ -2,15 +2,33 @@ from flask import Flask, render_template, request, jsonify
 import json
 import os
 import model as mod
+import sqlite3
 
 
 app = Flask(__name__) # директива __name__ указывает на имя файла
+
+def get_db_connection(): # подключение к базе данных
+    conn = sqlite3.connect('chocolate.db')  # имя файла базы
+    conn.row_factory = sqlite3.Row        # чтобы получать строки в формате словаря
+    return conn
 
 # Обработчик, Декоратор
 @app.route("/index")  
 @app.route("/")  
 def index():
     return render_template('index.html')
+
+
+@app.route("/get_companies") # запрос на получение данных о названиях компаний из бд
+def get_companies():
+    conn = get_db_connection()  # Открываем соединение с базой db.sqlite3
+    companies = conn.execute('SELECT id, name FROM companies').fetchall()  # Берем все компании
+    conn.close()  # Закрываем соединение (очень важно закрывать соединение!)
+    # companies — это список строк из базы данных. Мы превращаем каждую строку в словарь:
+    companies_list = [{'id': row['id'], 'name': row['name']} for row in companies]
+    
+    return jsonify(companies_list)  # Возвращаем список как JSON-объект
+
 
 # Маршрут для приема данных
 @app.route("/submit", methods=['POST'])

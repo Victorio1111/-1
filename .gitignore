@@ -2,3 +2,4 @@
 venv/
 catboost_model.cbm
 submission.json
+chocolate.db

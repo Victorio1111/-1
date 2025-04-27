@@ -11,7 +11,9 @@
     <input type="number" name="cocoa_percent" placeholder="70"> %<br><br>
 
     <label>Компания (производитель):</label>
-    <input type="text" name="company" placeholder="A. Morin"><br><br>
+    <select name="company" id="company-select">
+        <option value="">Выберите компанию</option>
+    </select><br><br>
 
     <label>Конкретное происхождение бобов или название плитки:</label>
     <input type="text" name="bean_origin" placeholder="Sur del Lago"><br><br>
@@ -26,6 +28,8 @@
     <input type="text" name="broad_bean_origin" placeholder="Venezuela"><br><br>
 
     <button type="submit">Отправить</button>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </form>
 {% endblock %}
 
