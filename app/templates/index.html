@@ -5,15 +5,16 @@
 {% endblock %}
 
 {% block body %}
-<h1>Главная страница</h1>
+<h1>Укажите параметры для прогноза</h1>
 <form action="/submit" method="post">
     <label>Процент какао:</label>
     <input type="number" name="cocoa_percent" placeholder="70"> %<br><br>
 
-    <label>Компания (производитель):</label>
-    <select name="company" id="company-select">
-        <option value="">Выберите компанию</option>
-    </select><br><br>
+    <label for="company">Компания (производитель):</label>
+    <input list="companies" name="company" id="company" placeholder="Выберите компанию">
+        <datalist id="companies">
+        <!-- Здесь будут автоматически добавляться варианты через JS -->
+        </datalist><br><br>
 
     <label>Конкретное происхождение бобов или название плитки:</label>
     <input type="text" name="bean_origin" placeholder="Sur del Lago"><br><br>
@@ -30,6 +31,7 @@
     <button type="submit">Отправить</button>
 
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
 </form>
 {% endblock %}
 
