@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify 
 import json
 import os
+import model as mod
 
 
 app = Flask(__name__) # директива __name__ указывает на имя файла
@@ -23,8 +24,8 @@ def submit():
     broad_bean_origin = request.form.get('broad_bean_origin')
     
     # Собираем данные в json словарь
-    data = {
-        'Cocoa Percent': [int(cocoa_percent)],  # как в примере — в список
+    user_input = {
+        'Cocoa Percent': [float(cocoa_percent)],  # Преобразуем к float
         'Company\xa0 (Maker-if known)': [company],
         'Specific Bean Origin or Bar Name': [bean_origin],
         'Company Location': [company_location],
@@ -34,9 +35,13 @@ def submit():
     
     # Сохраняем в файл (например, в папку проекта)
     with open('submission.json', 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+        json.dump(user_input, f, ensure_ascii=False, indent=4)
         
-    return jsonify({"message": "Данные успешно сохранены!", "data": data})
+    # Делаем предсказание
+    predicted_rating = mod.predict_chocolate_rating(user_input)
+    
+    # Возвращаем результат
+    return jsonify({'predicted_rating': round(predicted_rating, 2)})
 
 
 if __name__ == '__main__':
