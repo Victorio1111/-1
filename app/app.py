@@ -1,4 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, jsonify 
+import json
+import os
+
 
 app = Flask(__name__) # директива __name__ указывает на имя файла
 
@@ -7,6 +10,34 @@ app = Flask(__name__) # директива __name__ указывает на им
 @app.route("/")  
 def index():
     return render_template('index.html')
+
+# Маршрут для приема данных
+@app.route("/submit", methods=['POST'])
+def submit():
+    # Считываем данные из формы
+    cocoa_percent = request.form.get('cocoa_percent')
+    company = request.form.get('company')
+    bean_origin = request.form.get('bean_origin')
+    company_location = request.form.get('company_location')
+    bean_type = request.form.get('bean_type')
+    broad_bean_origin = request.form.get('broad_bean_origin')
+    
+    # Собираем данные в json словарь
+    data = {
+        'Cocoa Percent': [int(cocoa_percent)],  # как в примере — в список
+        'Company\xa0 (Maker-if known)': [company],
+        'Specific Bean Origin or Bar Name': [bean_origin],
+        'Company Location': [company_location],
+        'Bean Type': [bean_type],
+        'Broad Bean Origin': [broad_bean_origin]
+    }
+    
+    # Сохраняем в файл (например, в папку проекта)
+    with open('submission.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+        
+    return jsonify({"message": "Данные успешно сохранены!", "data": data})
+
 
 if __name__ == '__main__':
     app.run(debug=True) # при debug = True сервер будет автоматически перезапускаться + обработка ошибок

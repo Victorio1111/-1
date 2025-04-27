@@ -6,9 +6,26 @@
 
 {% block body %}
 <h1>Главная страница</h1>
-    <form>
-    <label for="name">Введите имя</label>
-    <input type="text" id="1" placeholder="Виктор">
-    </form>
+<form action="/submit" method="post">
+    <label>Процент какао:</label>
+    <input type="number" name="cocoa_percent" placeholder="70"> %<br><br>
+
+    <label>Компания (производитель):</label>
+    <input type="text" name="company" placeholder="A. Morin"><br><br>
+
+    <label>Конкретное происхождение бобов или название плитки:</label>
+    <input type="text" name="bean_origin" placeholder="Sur del Lago"><br><br>
+
+    <label>Страна компании:</label>
+    <input type="text" name="company_location" placeholder="France"><br><br>
+
+    <label>Тип бобов:</label>
+    <input type="text" name="bean_type" placeholder="Criollo"><br><br>
+
+    <label>Широкое происхождение бобов:</label>
+    <input type="text" name="broad_bean_origin" placeholder="Venezuela"><br><br>
+
+    <button type="submit">Отправить</button>
+</form>
 {% endblock %}
 
