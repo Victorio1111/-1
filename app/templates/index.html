@@ -6,7 +6,7 @@
 
 {% block body %}
 <h1>Укажите параметры для прогноза</h1>
-<form action="/submit" method="post">
+<form id="predict-form" action="/submit" method="post">
     <label>Процент какао:</label>
     <input type="number" name="cocoa_percent" placeholder="70"> %<br><br>
 
@@ -30,8 +30,14 @@
 
     <button type="submit">Отправить</button>
 
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/search.js') }}"></script>
 </form>
+
+<!-- Блок для вывода результата -->
+    <div id="result-block" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
+        Здесь появится результат прогноза
+    </div>
+
+<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+<script src="{{ url_for('static', filename='js/model_output.js') }}"></script>
 {% endblock %}
 
