@@ -19,8 +19,9 @@ def index():
     return render_template('index.html')
 
 
-@app.route("/get_companies") # запрос на получение данных о названиях компаний из бд
+@app.route("/get_companies") 
 def get_companies():
+    
     conn = get_db_connection()  # Открываем соединение с базой db.sqlite3
     companies = conn.execute('SELECT id, name FROM companies').fetchall()  # Берем все компании
     conn.close()  # Закрываем соединение (очень важно закрывать соединение!)
@@ -44,7 +45,7 @@ def submit():
     # Собираем данные в json словарь
     user_input = {
         'Cocoa Percent': [float(cocoa_percent)],  # Преобразуем к float
-        'Company\xa0 (Maker-if known)': [company],
+        'Company (Maker-if known)': [company],
         'Specific Bean Origin or Bar Name': [bean_origin],
         'Company Location': [company_location],
         'Bean Type': [bean_type],

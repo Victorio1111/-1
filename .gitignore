@@ -1,5 +1,7 @@
 /tmp 
 venv/
 catboost_model.cbm
+catboost_model2.0.cbm
 submission.json
 chocolate.db
+/Модель2.0

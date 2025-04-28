@@ -5,12 +5,12 @@ import pickle
 
 # === Загружаем обученную модель и вспомогательные данные ===
 catboost_model = CatBoostRegressor()
-catboost_model.load_model("catboost_model.cbm")
+catboost_model.load_model("Модель2.0/catboost_model2.0.cbm")
 
-with open("encoder.pkl", "rb") as f:
+with open("Модель2.0/encoder2.0.pkl", "rb") as f:
     encoder = pickle.load(f)
 
-with open("feature_order.pkl", "rb") as f:
+with open("Модель2.0/feature_order2.0.pkl", "rb") as f:
     feature_order = pickle.load(f)
 
 # === Предсказание ===
