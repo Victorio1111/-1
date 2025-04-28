@@ -17,16 +17,21 @@
         </datalist><br><br>
 
     <label>Конкретное происхождение бобов или название плитки:</label>
-    <input type="text" name="bean_origin" placeholder="Sur del Lago"><br><br>
+    <input list="bean_origins" name="bean_origin" id="bean_origin" placeholder="Sur del Lago">
+        <datalist id="bean_origins"></datalist><br><br>
+        
 
     <label>Страна компании:</label>
-    <input type="text" name="company_location" placeholder="France"><br><br>
+    <input list="company_locations" name="company_location" id="company_location" placeholder="France">
+        <datalist id="company_locations"></datalist><br><br>
 
     <label>Тип бобов:</label>
-    <input type="text" name="bean_type" placeholder="Criollo"><br><br>
+    <input list="bean_types" name="bean_type" id="bean_type" placeholder="Criollo">
+        <datalist id="bean_types"></datalist><br><br>
 
-    <label>Широкое происхождение бобов:</label>
-    <input type="text" name="broad_bean_origin" placeholder="Venezuela"><br><br>
+    <label>Происхождение бобов:</label>
+    <input list="broad_bean_origins" name="broad_bean_origin" id="broad_bean_origin" placeholder="Venezuela">
+        <datalist id="broad_bean_origins"></datalist><br><br>
 
     <button type="submit">Отправить</button>
 

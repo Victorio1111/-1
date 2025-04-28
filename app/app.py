@@ -18,7 +18,7 @@ def get_db_connection(): # подключение к базе данных
 def index():
     return render_template('index.html')
 
-
+# --- Маршруты для выпадающих списков
 @app.route("/get_companies") 
 def get_companies():
     
@@ -30,8 +30,36 @@ def get_companies():
     
     return jsonify(companies_list)  # Возвращаем список как JSON-объект
 
+@app.route("/get_bean_origins")
+def get_bean_origins():
+    conn = get_db_connection()
+    origins = conn.execute('SELECT id, name FROM bean_origins').fetchall()
+    conn.close()
+    return jsonify([{'id': row['id'], 'name': row['name']} for row in origins])
 
-# Маршрут для приема данных
+@app.route("/get_company_locations")
+def get_company_locations():
+    conn = get_db_connection()
+    locations = conn.execute('SELECT id, location FROM company_locations').fetchall()
+    conn.close()
+    return jsonify([{'id': row['id'], 'name': row['location']} for row in locations])
+
+@app.route("/get_bean_types")
+def get_bean_types():
+    conn = get_db_connection()
+    types = conn.execute('SELECT id, name FROM bean_types').fetchall()
+    conn.close()
+    return jsonify([{'id': row['id'], 'name': row['name']} for row in types])
+
+@app.route("/get_broad_bean_origins")
+def get_broad_bean_origins():
+    conn = get_db_connection()
+    origins = conn.execute('SELECT id, name FROM broad_bean_origins').fetchall()
+    conn.close()
+    return jsonify([{'id': row['id'], 'name': row['name']} for row in origins])
+
+
+# --- Маршрут для приема данных
 @app.route("/submit", methods=['POST'])
 def submit():
     # Считываем данные из формы
