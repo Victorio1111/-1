@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify 
 import json
 import os
-import model as mod
+from app import model as mod
 import sqlite3
 
 
@@ -57,6 +57,30 @@ def get_broad_bean_origins():
     origins = conn.execute('SELECT id, name FROM broad_bean_origins').fetchall()
     conn.close()
     return jsonify([{'id': row['id'], 'name': row['name']} for row in origins])
+
+# Маршрут для отображения списка моделей и информации о них
+@app.route("/get_models")
+def get_models():
+    with open("models_registry.json", encoding="utf-8") as f:
+        registry = json.load(f)
+
+    result = []
+
+    for model_id, info in registry.items():
+        try:
+            with open(info["metadata"], encoding="utf-8") as mf:
+                meta = json.load(mf)
+        except:
+            meta = {}
+
+        result.append({
+            "id": model_id,
+            "name": meta.get("name", model_id),
+            "description": meta.get("description", ""),
+            "metrics": meta.get("metrics", {})
+        })
+
+    return jsonify(result)
 
 
 # --- Маршрут для приема данных

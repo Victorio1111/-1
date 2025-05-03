@@ -5,42 +5,61 @@
 {% endblock %}
 
 {% block body %}
-<h1>Укажите параметры для прогноза</h1>
-<form id="predict-form" action="/submit" method="post">
-    <label>Процент какао:</label>
-    <input type="number" name="cocoa_percent" placeholder="70"> %<br><br>
 
-    <label for="company">Компания (производитель):</label>
-    <input list="companies" name="company" id="company" placeholder="Выберите компанию">
-        <datalist id="companies">
-        <!-- Здесь будут автоматически добавляться варианты через JS -->
-        </datalist><br><br>
+<!-- Блок с информацией о выбранной модели -->
+    <div style="display: flex; justify-content: space-between;">
+        <!-- Форма слева -->
+        <div style="width: 60%;">
+            <h1>Укажите параметры для прогноза</h1>
+            <form id="predict-form" action="/submit" method="post">
+                <label>Процент какао:</label>
+                <input type="number" name="cocoa_percent" placeholder="70" min="0" max="100"> %<br><br>
+            
+                <label for="company">Компания (производитель):</label>
+                <input list="companies" name="company" id="company" placeholder="Выберите компанию">
+                    <datalist id="companies">
+                    <!-- Здесь будут автоматически добавляться варианты через JS -->
+                    </datalist><br><br>
+            
+                <label>Конкретное происхождение бобов или название плитки:</label>
+                <input list="bean_origins" name="bean_origin" id="bean_origin" placeholder="Sur del Lago">
+                    <datalist id="bean_origins"></datalist><br><br> 
+            
+                <label>Страна компании:</label>
+                <input list="company_locations" name="company_location" id="company_location" placeholder="France">
+                    <datalist id="company_locations"></datalist><br><br>
+            
+                <label>Тип бобов:</label>
+                <input list="bean_types" name="bean_type" id="bean_type" placeholder="Criollo">
+                    <datalist id="bean_types"></datalist><br><br>
+            
+                <label>Происхождение бобов:</label>
+                <input list="broad_bean_origins" name="broad_bean_origin" id="broad_bean_origin" placeholder="Venezuela">
+                    <datalist id="broad_bean_origins"></datalist><br><br>
+            
+                <button type="submit">Отправить</button>
 
-    <label>Конкретное происхождение бобов или название плитки:</label>
-    <input list="bean_origins" name="bean_origin" id="bean_origin" placeholder="Sur del Lago">
-        <datalist id="bean_origins"></datalist><br><br>
-        
-
-    <label>Страна компании:</label>
-    <input list="company_locations" name="company_location" id="company_location" placeholder="France">
-        <datalist id="company_locations"></datalist><br><br>
-
-    <label>Тип бобов:</label>
-    <input list="bean_types" name="bean_type" id="bean_type" placeholder="Criollo">
-        <datalist id="bean_types"></datalist><br><br>
-
-    <label>Происхождение бобов:</label>
-    <input list="broad_bean_origins" name="broad_bean_origin" id="broad_bean_origin" placeholder="Venezuela">
-        <datalist id="broad_bean_origins"></datalist><br><br>
-
-    <button type="submit">Отправить</button>
-
-</form>
-
-<!-- Блок для вывода результата -->
-    <div id="result-block" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
-        Здесь появится результат прогноза
+                <!-- Блок для вывода результата -->
+                <div id="result-block" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
+                    Здесь появится результат прогноза
+                </div>
+            
+            </form>
+        </div>
+    
+        <!-- Инфо о модели справа -->
+        <div style="width: 35%; padding-left: 20px;">
+        <h2>Выбор модели</h2>
+        <select id="model-select"></select>
+    
+        <div id="model-info" style="margin-top: 20px;">
+            <h3 id="model-name"></h3>
+            <p id="model-description"></p>
+            <ul id="model-metrics"></ul>
+        </div>
+        </div>
     </div>
+  
 
 <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 <script src="{{ url_for('static', filename='js/model_output.js') }}"></script>
